@@ -15,9 +15,7 @@ class UsuarioController extends Controller
             ->select(['id', 'nome', 'senha', 'email'])
             ->get();
 
-        return response()->json([
-            $user
-        ]);
+        return response()->json($user);
     }
 
     public function criar(Request $request)

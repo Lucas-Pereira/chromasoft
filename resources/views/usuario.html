@@ -1,11 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-   
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
+    <body>
+        
+        <div class="container">
+            <span id="tabela"></span>
+        </div>
+
+    </body>
+
+    <script type="module">
+        import verbosUsuario from "/js/verbosUsuario.js";
+
+        window.getUsuarios = async function () {
+         
+          
+
+            let resultado = await verbosUsuario.get();
+            
+            const usuarios =  await resultado.json();
+            console.log(usuarios);
+            //console.log('json',json);
+
+            //document.getElementById('tarefas').innerHTML = JSON.stringify(json);
+            if(usuarios.length == 0 ){
+                document.getElementById("tabela").innerHTML = "Não existem usuários cadastrados!";
+                return;
+            }
+
+            let tabela = "";
+            let dataHead =
+                "<table >" +
+                "<tr>" +
+                "<th>Nome</th>" +
+                "<th>email</th>" +
+                "<th>Ações</th>" +
+                "</tr>";
+
+            tabela += dataHead;
+            for (let i = 0; i < usuarios.length; i++) {
+                //+"<td>"+json[i].id+"</td>"
+                let dataBody =
+                    "<tr>" +
+                    "<td>" +
+                    usuarios[i].nome +
+                    "</td>" +
+                    "<td>" +
+                        usuarios[i].email +
+                    "</td>" +
+                    "<td>" +
+                    "<button class=' button' onclick=mostrarTelaEditar(" +
+                    usuarios[i].id +
+                    ")><i class='material-icons'>edit</i>Editar</button>" +
+                    "<button class=' button' onclick=excluirUsuario(" +
+                    usuarios[i].id +
+                    ") id ='excluir'><i class='material-icons'>delete</i>excluir</button>" +
+                    "</td>" +
+                    "</tr>";
+
+                tabela += dataBody;
+            }
+
+            tabela += "</table>";
+
+            document.getElementById("tabela").innerHTML = tabela;
+            //Alternativa encontrada para reverter o bug de concatenação de projetos
+           
+
+            return usuarios;
+        }; // fim função
+
+
+        window.excluirUsuario = async function(id){
+
+            const resultado =  await verbosUsuario.delete(id);
+            const usuarioDeletado = await resultado.json();
+            console.log(usuarioDeletado);//retorna true
+            if(usuarioDeletado){
+                alert("usuario deletado");
+                window.getUsuarios();
+            }else{
+                alert("Não foi possivel excluir usuario");
+            }
+            
+        }
+        function mostrarTelaEditar(){
+            
+        }
+
+        getUsuarios();
+    </script>
 </html>

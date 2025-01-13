@@ -1,6 +1,6 @@
 export default{
 
-    get () {
+     get () {
         return fetch("http://localhost:8000/api/usuario", {
             method: "GET",
             headers: {
@@ -32,8 +32,8 @@ export default{
             method: "DELETE",
             headers: {
                 "Content-type": "application/json",
-            },
-            body: JSON.stringify(usuario),
+                'Access-Control-Allow-Origin': '*'
+            }
         });
     }
 }
