@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use Exception;
 
 class UsuarioController extends Controller
 {
@@ -38,10 +39,12 @@ class UsuarioController extends Controller
     public function atualizar(Request $request, $id)
     {
         $user = DB::table('usuarios')
-        ->whereraw('id = ' .$request->id . ' and senha = ' . $request->senha )
+        ->where('id',$id)
         ->update(['nome' => $request->nome, 'email' => $request->email]);
 
         return response()->json($user);
+    
+       
     }
 
     public function deletar($id)

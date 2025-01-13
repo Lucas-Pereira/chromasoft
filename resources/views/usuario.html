@@ -140,6 +140,8 @@
             const resultado =  await verbosUsuario.put(id, usuario);
             const usuarioAtualizado = await resultado.json();
 
+            console.log(usuarioAtualizado);
+            
             if(usuarioAtualizado){
                 alert("Usuario Atualizado");
                 window.getUsuarios();
