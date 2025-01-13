@@ -1,70 +1,94 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <title>Document</title>
-</head>
-<body>
-    <div class="container">
-        <a href="/usuario" class="btn">Lista de usuários</a>
-        <header>
-            <h2>Cadastro de Usuário</h2>
-        </header>
-        <section>
-            <div class="input-form" >
-                <span>nome</span>
-                <input type="text" class="input" id="nome">
-                
-            </div>
-            <div class="input-form">
-                <span>email</span>
-                <input type="email" class="input" id="email">
-                
-            </div>
-            <div class="input-form">
-                <span>senha</span>
-                <input type="password"  class="input" id="senha">
-                
-            </div>
-            <div class="btn-form">
-                <button class="btn " onclick="cadastrarUsuario()">cadastrar <span id="loader"></span></button>
-            </div>
-        </section>
-    </div>
-</body>
-<script type="module">
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <h2>Cadastro de Usuário</h2>
+            </header>
+            <section>
+                <div class="input-form">
+                    <span>nome</span>
+                    <input type="text" class="input" id="nome"  required/>
+                </div>
 
- import verbosUsuario from '/js/verbosUsuario.js'
-    
- 
-    window.cadastrarUsuario = function (){
-        
-        let nome = document.getElementById("nome").value;
-        let email = document.getElementById("email").value;
-        let senha = document.getElementById("senha").value;
-        
+                <div class="input-form">
+                    <span>email</span>
+                    <input type="email" class="input" id="email" required/>
+                </div>
 
-       const usuario = {
-            'nome':nome,
-            'email':email,
-            'senha':senha
+                <div class="input-form">
+                    <span>senha</span>
+                    <input type="password" class="input" id="senha" required/>
+                </div>
+                
+                <div class="btn-form">
+                    <input
+                        type="button"
+                        class="btn"
+                        onclick="cadastrarUsuario()"
+                        value="cadastrar"
+                    />
+                    <a href="/usuario" class="btn" style="float: right">
+                        Lista de usuários
+                    </a>
+                    
+                </div>
+            </section>
+        </div>
+
+        <div class="modal-msg" id="modal">
+            <span class="close" onclick="fecharModal('modal')">&times;</span>
+            <p id="mensagem"></p>
+          </div>
+    </body>
+    <script type="module">
+        import apiUsuario from "/js/apiUsuario.js";
+
+        window.cadastrarUsuario = function () {
+            let nome = document.getElementById("nome").value;
+            let email = document.getElementById("email").value;
+            let senha = document.getElementById("senha").value;
+
+            const usuario = {
+                nome: nome,
+                email: email,
+                senha: senha,
+            };
+
+            const modal = document.getElementById("modal");
+            const msg = document.getElementById("mensagem");
+
+            let response = apiUsuario.criar(usuario);
+            response.then(async function (res) {
+                if (res.status == 200) {
+                    document.getElementById("nome").value = "";
+                    document.getElementById("email").value = "";
+                    document.getElementById("senha").value = "";
+                   
+                    modal.style.background = "rgb(61, 151, 0)";
+                    modal.style.display = "block";
+                    msg.innerHTML = "Usuário criado com sucesso!";
+                }
+
+                if (res.status == 400 || res.status == 500) {
+                    const response = await res.json();
+                   
+                    modal.style.display = "block";
+                    modal.style.background = "rgb(255, 99, 71)";
+                    msg.innerHTML = response.message;
+                }
+            });
         };
 
-        console.log(usuario);
-        let response = verbosUsuario.post(usuario);
-        response.then(async function (res){
-            if (res.status == 200) {
-                        alert("criado com sucesso");
-                    }
+        window.fecharModal = function(tela){
+            document.getElementById(tela).style.display = "none";
+        };
 
-                    if (res.status == 400 || res.status == 500) {
-                        alert("criado com insucesso");
-                    }
-        });
-                    
-    }
-
-</script>
+    </script>
 </html>

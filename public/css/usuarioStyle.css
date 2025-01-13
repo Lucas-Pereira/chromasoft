@@ -1,0 +1,39 @@
+.tabelaContainer {
+    
+    background-color: antiquewhite;
+  
+}
+.tabelaContente{
+    
+  
+}
+
+th,
+td {
+    border-bottom: 1px solid #ddd;
+    padding: 15px;
+    text-align: left;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.padding-5 {
+    padding: 0.5em;
+}
+
+.bnt-close {
+    float: right;
+    position: relative;
+    top: -10px;
+}

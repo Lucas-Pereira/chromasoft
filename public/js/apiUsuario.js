@@ -1,6 +1,6 @@
 export default{
 
-     get () {
+     index () {
         return fetch("http://localhost:8000/api/usuario", {
             method: "GET",
             headers: {
@@ -8,7 +8,7 @@ export default{
             }
         });
     },
-    post(usuario){
+    criar(usuario){
         return fetch("http://localhost:8000/api/usuario", {
             method: "POST",
             headers: {
@@ -17,7 +17,7 @@ export default{
             body: JSON.stringify(usuario),
         });
     },
-    put(id,usuario){
+    atualizar(id,usuario){
         return fetch("http://localhost:8000/api/usuario/"+id, {
             method: "PUT",
             headers: {
@@ -27,7 +27,7 @@ export default{
             body: JSON.stringify(usuario),
         });
     },
-    delete(id){
+    deletar(id){
         return fetch("http://localhost:8000/api/usuario/"+id, {
             method: "DELETE",
             headers: {

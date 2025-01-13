@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 *{
     margin: 0;
     box-sizing: border-box;
+    font-family: "Poppins", serif;
 }
 
 html, body{
@@ -18,12 +21,16 @@ html, body{
 .container a{
     text-decoration: none;
 }
+header{
+    margin-top: 5px;
+}
 .container h2{
     color: #444;
     font-size: 25px;
     font-weight: 600;
     text-align: center;
     padding: 18px;
+    width: 100%;
 }
 
 section{
@@ -31,12 +38,13 @@ section{
 }
 .input-form{
     padding: 10px;
-    margin: 20px 0;
+    margin-left: 20px;
     display: flex;
     flex-direction: column;
-    gap: 2;
+    
 }
 .input{
+  padding: 10px;
   margin: 10px 0;
   border: none;
   border-bottom: 1px solid #444;
@@ -52,6 +60,9 @@ section{
     width: 90%;
     margin-top: 20px;
     padding: 5px;
+    display: flex;
+    justify-content: space-around;
+    
 }
 .btn{
     border: 1px solid #444;
@@ -75,3 +86,86 @@ section{
     margin-left: 20px;
     
 }
+
+.modal-msg {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+    color: #fff;
+    display: none;
+    z-index: 10;
+  }
+  .close {
+    color: #fff;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+
+.tabelaContainer {
+    
+    background-color: antiquewhite;
+  
+}
+.tabelaContente{
+    
+  
+}
+
+th,
+td {
+    border-bottom: 1px solid #ddd;
+    padding: 15px;
+    text-align: left;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.padding-5 {
+    padding: 0.5em;
+}
+
+.bnt-close {
+    float: right;
+    position: relative;
+    top: -10px;
+}
+
+
+
+@media only screen and (max-width: 760px) {
+    .container {
+      width: 90%;
+    }
+
+    .modal-msg {
+        width: 80%;
+    }
+
+  }
+
+  
