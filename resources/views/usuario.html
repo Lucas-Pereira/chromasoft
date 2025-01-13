@@ -12,6 +12,37 @@
             <span id="tabela"></span>
         </div>
 
+        <div id="modalEditarUsuario" class="modal">
+            <div class="container ">
+                <header class="w3-container w3-white">
+                    <h2>Editar Projeto</h2>
+                    <span onclick="fecharModalEditarUsuario()" class="btn">&times;</span>
+                </header>
+                <div class="w3-container w3-padding">
+                    <label class="w3-text"><b>Nome</b></label>
+                    <input class="w3-input" type="text" id="nomeEdicao">
+                    <input type="hidden"  id="idEdicao">
+                </div>
+                <div class="w3-container w3-padding">
+                    <label class="w3-text"><b>Email</b></label>
+                    <input class="w3-input" type="email" id="emailEdicao" required>
+                </div>
+                <div class="w3-container w3-padding">
+                    <label class="w3-text"><b>Senha</b></label>
+                    <input class="w3-input" type="password" id="senhaEdicao" required>
+                </div>
+                <div class="w3-container w3-padding">
+                    <label class="w3-text"><b>Nova senha</b></label>
+                    <input class="w3-input" type="password" id="novaSenhaEdicao" required>
+                </div>
+                <footer class="w3-container">
+                    <div id="button">
+                        <button class="button " onclick="editarUsuario()">Salvar</button>
+                    </div>
+                </footer>
+            </div>
+        </div>
+
     </body>
 
     <script type="module">
@@ -55,8 +86,8 @@
                     "</td>" +
                     "<td>" +
                     "<button class=' button' onclick=mostrarTelaEditar(" +
-                    usuarios[i].id +
-                    ")><i class='material-icons'>edit</i>Editar</button>" +
+                    usuarios[i].id +",'"+usuarios[i].nome+"','"+usuarios[i].email+
+                    "')><i class='material-icons'>edit</i>Editar</button>" +
                     "<button class=' button' onclick=excluirUsuario(" +
                     usuarios[i].id +
                     ") id ='excluir'><i class='material-icons'>delete</i>excluir</button>" +
@@ -89,8 +120,45 @@
             }
             
         }
-        function mostrarTelaEditar(){
-            
+
+        window.editarUsuario = async function(){
+
+            let id = document.getElementById("idEdicao").value;
+            let nome = document.getElementById("nomeEdicao").value;
+            let email = document.getElementById("emailEdicao").value;
+            let senha = document.getElementById("senhaEdicao").value;
+            let novaSenha = document.getElementById("novaSenhaEdicao").value;
+
+            const usuario = {
+                'id': id,
+                'nome' :nome,
+                'email': email,
+                'senha': senha,
+                'novaSenha':novaSenha
+            }
+
+            const resultado =  await verbosUsuario.put(id, usuario);
+            const usuarioAtualizado = await resultado.json();
+
+            if(usuarioAtualizado){
+                alert("Usuario Atualizado");
+                window.getUsuarios();
+            }else{
+                alert("não foi possivel Atualizar");
+            }
+
+        }
+
+        window.mostrarTelaEditar = function(id, nome, email){
+            document.getElementById("modalEditarUsuario").style.display = "block";
+
+            document.getElementById("idEdicao").value = id;
+            document.getElementById("nomeEdicao").value = nome;
+            document.getElementById("emailEdicao").value = email;
+        }
+
+        window.fecharModalEditarUsuario = function(){
+            document.getElementById("modalEditarUsuario").style.display = "none";
         }
 
         getUsuarios();

@@ -17,7 +17,7 @@ export default{
             body: JSON.stringify(usuario),
         });
     },
-    put(id, usuario){
+    put(id,usuario){
         return fetch("http://localhost:8000/api/usuario/"+id, {
             method: "PUT",
             headers: {

@@ -38,7 +38,7 @@ class UsuarioController extends Controller
     public function atualizar(Request $request, $id)
     {
         $user = DB::table('usuarios')
-        ->whereraw('id = ' . $id . ' and senha = ' . $request->senha )
+        ->whereraw('id = ' .$request->id . ' and senha = ' . $request->senha )
         ->update(['nome' => $request->nome, 'email' => $request->email]);
 
         return response()->json($user);
